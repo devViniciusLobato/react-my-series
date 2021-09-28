@@ -11,13 +11,26 @@ const Genres = () => {
     });
   }, []);
 
+  const deleteGenre = (id) => {
+    axios.delete("api/genres/" + id).then((res) => {
+      const filtered = data.filter((item) => item.id !== id);
+      setData(filtered);
+    });
+  };
+
   const renderLine = (record) => {
     return (
       <tr key={record.id}>
         <th scope="row">{record.id}</th>
         <td>{record.name}</td>
         <td>
-          <button>+</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => deleteGenre(record.id)}
+          >
+            Remover
+          </button>
+          <Link to={"/genres/" + record.id}>Editar</Link>
         </td>
       </tr>
     );
@@ -27,9 +40,6 @@ const Genres = () => {
     return (
       <div className="container">
         <h1>Genres</h1>
-        <div>
-          <Link to="/genres/new">Novo Gênero</Link>
-        </div>
         <div className="alert alert-warning" role="alert">
           você não possue Gêneros criados!
         </div>
@@ -40,6 +50,9 @@ const Genres = () => {
   return (
     <div className="container">
       <h1>Genres</h1>
+      <div>
+        <Link to="/genres/new">Novo Gênero</Link>
+      </div>
       <table className="table table-dark">
         <thead>
           <tr>
