@@ -1,22 +1,30 @@
 //irm + Tab
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
+import Genres from "./Genres";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from "axios";
 
 const Home = () => {
   return <h1>Home</h1>;
 };
 
-const genres = () => {
-  return <h1>Genres</h1>;
-};
-
 function App() {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    axios.get("/api").then((res) => {
+      setData(res.data);
+    });
+  });
+
   return (
     <Router>
       <div>
         <Header />
-        <Route path="/" component={Home} />
+        <Route path="/" exact component={Home} />
+        <Route path="/genres" component={Genres} />
+        <pre>{JSON.stringify(data)}</pre>
       </div>
     </Router>
   );
