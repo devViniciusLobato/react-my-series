@@ -51,7 +51,9 @@ const Genres = () => {
     <div className="container">
       <h1>Genres</h1>
       <div>
-        <Link to="/genres/new">Novo Gênero</Link>
+        <Link to="/genres/new" className="btn btn-primary">
+          Novo Gênero
+        </Link>
       </div>
       <table className="table table-dark">
         <thead>

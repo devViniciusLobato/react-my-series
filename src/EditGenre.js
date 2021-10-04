@@ -10,9 +10,7 @@ const EditGenre = ({ match }) => {
     axios.get("/api/genres/" + match.params.id).then((res) => {
       setName(res.data.name);
     });
-  });
-
-  console.log(match);
+  }, [match.params.id]);
 
   const onChange = (event) => {
     setName(event.target.value);
@@ -20,8 +18,8 @@ const EditGenre = ({ match }) => {
 
   const save = () => {
     axios
-      .post("/api/genres", {
-        name: name,
+      .put("/api/genres" + match.params.id, {
+        name,
       })
       .then((res) => {
         setSeccess(true);
