@@ -1,34 +1,36 @@
 //irm + Tab
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "./Header";
 import Genres from "./Genres";
 import NewGenre from "./NewGenre";
 import EditGenre from "./EditGenre";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import axios from "axios";
+import Series from "./Series";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import NewSerie from "./NewSerie";
+import InfoSerie from "./InfoSerie";
 
 const Home = () => {
-  return <h1>Home</h1>;
+  return (
+    <div className="container">
+      <h1>Home</h1>
+    </div>
+  );
 };
 
 function App() {
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    axios.get("/api").then((res) => {
-      setData(res.data);
-    });
-  });
-
   return (
     <Router>
       <div>
         <Header />
-        <Route path="/" exact component={Home} />
-        <Route path="/genres/:id" component={EditGenre} />
-        <Route path="/genres/new" exact component={NewGenre} />
-        <Route path="/genres" component={Genres} />
-        <pre>{JSON.stringify(data)}</pre>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/genres" component={Genres} />
+          <Route path="/genres/new" exact component={NewGenre} />
+          <Route path="/genres/:id" component={EditGenre} />
+          <Route path="/series" exact component={Series} />
+          <Route path="/series/new" exact component={NewSerie} />
+          <Route path="/series/:id" exact component={InfoSerie} />
+        </Switch>
       </div>
     </Router>
   );
