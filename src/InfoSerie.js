@@ -11,7 +11,7 @@ const InfoSerie = ({ match }) => {
     axios.get("/api/series/" + match.params.id).then((res) => {
       setData(res.data);
     });
-  }, match.params.id);
+  }, [match.params.id]);
 
   const onChange = (event) => {
     setName(event.target.value);
